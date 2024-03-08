@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingreso GYM</title>
+    <title>pagar</title>
 </head>
 <body>
     <?php
@@ -15,16 +15,17 @@
         $fechaIngreso =$_POST["fechaIngreso"];
         $fechaPago =$_POST["fechaPago"];
         $email =$_POST["email"];
+        $metodoPago=$_POST["metodoPago"];
 
-        $dbuser="root";
-        $dbpassword="";
+        $dbuser="mafe";
+        $dbpassword="mafe1234";
 
-        $conn = new PDO("mysql:host=localhost;dbname=gym", $dbuser, $dbpassword);
+        $conn = new PDO("mysql:host=localhost;port=3310;dbname=gym", $dbuser, $dbpassword);
         //limpiar datos
         $dbuser ="";
         $dbpassword="";
         
-        $query ="INSERT INTO `usuarios` (`id`, `nombre`, `documento`, `fechaIngreso`, `fechaPago`, `correo`) VALUES (NULL, '$nombre', '$documento', '$fechaIngreso', '$fechaPago', '$email');";
+        $query ="INSERT INTO `pago` (`id`, `nombre`, `documento`, `fechaIngreso`, `fechaPago`, `email`, `metodoPago`) VALUES (NULL, '$nombre', '$documento', '$fechaIngreso', '$fechaPago', '$email', '$metodoPago');";
         $q = $conn->prepare($query);
         $result =$q->execute();
 
@@ -37,7 +38,7 @@
         Documento: <input type="text" name="documento"><br>
         FechaIngreso: <input type="date" name="fechaIngreso"><br>
         FechaPago: <input type="date" name="fechaPago"><br>
-        Correo: <input type="email" name="email"><br>
+        email: <input type="text" name="email"><br>
         
         Método de Pago: <br>
         <input type="radio" name="metodoPago" value="efectivo"> Efectivo<br>
@@ -45,11 +46,11 @@
         <input type="radio" name="metodoPago" value="transferencia"> Transferencia Bancaria<br>
         <input type="radio" name="metodoPago" value="paypal"> PayPal<br>
                 
-        <input type="submit" value="Registrar">
+        <input type="submit" value="Pagar">
     <hr>
        
     </form>
-    <a href="http://localhost/jose/inicio/Trabajo2/login.php">Ingresar login</a>
+    <a href="http://localhost:81/taller1/Reg_entrena.php">Ir a registro de entrenamiento</a>
 
 </body>
 </html>

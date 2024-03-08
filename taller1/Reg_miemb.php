@@ -19,17 +19,27 @@
         $peso =$_POST["peso"];
         $objetivoFitness =$_POST["objetivoFitness"];
 
-        $dbuser="root";
-        $dbpassword="";
+        $dbuser="mafe";
+        $dbpassword="mafe1234";
 
-        $conn = new PDO("mysql:host=localhost;dbname=gym", $dbuser, $dbpassword);
-        //limpiar datos
-        $dbuser ="";
-        $dbpassword="";
         
-        $query ="INSERT INTO `ingreso_usuarios` (`id`, `nombre`, `documento`, `celular`, `email`, `fechaNacimiento`, `altura`, `peso`, `objetivoFitness`) VALUES (NULL, '$nombre', '$documento', '$celular', '$email', '$fechaNacimiento', '$altura', '$peso', '$objetivoFitness');";
-        $q = $conn->prepare($query);
-        $result =$q->execute();
+
+
+            $conn = new PDO("mysql:host=localhost;port=3310;dbname=gym", $dbuser, $dbpassword);
+            
+
+            $query ="INSERT INTO `ingreso_usuarios` (`id`, `nombre`, `documento`, `celular`, `email`, `fechaNacimiento`, `altura`, `peso`, `objetivoFitness`) VALUES (NULL, '$nombre', '$documento', '$celular', '$email', '$fechaNacimiento', '$altura', '$peso', '$objetivoFitness');";
+            $q = $conn->prepare($query);
+            $result =$q->execute();
+
+
+            //limpiar datos
+            $dbuser ="";
+            $dbpassword="";
+
+
+        
+        
 
     }
     ?>
@@ -52,7 +62,7 @@
     <hr>
        
     </form>
-    <a href="http://localhost:8080/taller1/prueba.php">IR AL PAGO</a>
+    <a href="http://localhost:81/taller1/prueba.php">IR AL PAGO</a>
 
 </body>
 </html>
