@@ -39,22 +39,22 @@
     <h1>Pago a buscar</h1>
     <form action="" method="GET">
 
-        Metodo de Pago: 
-        <input type="text" name="metodoPago">
+        FECHA : 
+        <input type="date" name="fechaPago">
         <input type="submit" value="Buscar">
     
     </form>
     <?php 
 
-    if(isset($_GET["metodoPago"])) {
-        $metodoPago = $_GET["metodoPago"]; 
-        echo "Busqueda por $metodoPago";
+    if(isset($_GET["fechaPago"])) {
+        $fechaPago = $_GET["fechaPago"]; 
+        echo "Busqueda por $fechaPago";
       
             $dbuser = "mafe";
             $dbpassword = "mafe1234";
 
                 $conn = new PDO("mysql:host=localhost;port=3310;dbname=gym", $dbuser, $dbpassword);
-                $consultaSQL = $conn->prepare("SELECT metodoPago, fechaPago, email FROM pago WHERE metodoPago= '$metodoPago' ");
+                $consultaSQL = $conn->prepare("SELECT metodoPago, fechaPago, email FROM pago WHERE fechaPago= '$fechaPago' ");
                 $consultaSQL->execute();
         
     ?>
