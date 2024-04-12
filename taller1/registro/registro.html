@@ -1,0 +1,55 @@
+<html>
+    <head>
+
+        <title> registro javascript</title>
+    </head>
+    <body>
+        <h1>PAGINA DE REGISTRO BONITO</h1>
+        <img src="imagen.avif" />
+        <form acction="">
+            nombre: <input type="text" name="nombre" id="nombre" onkeypress="onNombreKeyPres(this);"/> <br>
+            fecha de nacimiento: <input type="date" name="fechaNacimiento" /> <br>
+            genero: <input type="radio" name="genero" value="m" /> masculino
+            <input type="radio" name="genero" value="f"> femenino <br>
+            lugar de nacimiento <select name="LugarDeNacimiento">
+                <option value="man">Manizales</option>
+                <option value="bog">Bogota</option>
+                <option value="med">Medellin</option>
+
+
+            </select></br>
+            Password <input type="password" name="password" />
+            Password confirmation <input type="password" name="passwordConfirmation" /> <br>
+            color que mas le guste <input type="color" name="colorQueMasLeGuste" /> <br>
+            <input type="checkbox" name="acetoTerminosYCondiciones"> ACEPTO TERMINOS Y CONDICIONES
+          
+            
+        </form>
+        <br>
+        <button onclick="registrarse()" ">registrarse</button>
+
+        <script type="text/JavaScript">
+            function registrarse() {
+                let nombreElement = document.getElementById('nombre');
+                if (nombreElement.value ==''){
+                    nombreElement.style.background ='red';
+                    nombreElement.focus();
+                    alert('por favor ingrese su nombre');
+                    
+                }   
+                console.log ({nombreElement});
+
+
+            }
+
+            function onNombreKeyPres(nombreElement) {
+                nombreElement.style.background = 'none';
+                
+            }
+           
+
+        </script>
+
+    </body>
+
+</html>

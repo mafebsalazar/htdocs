@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro en el Gimnasio</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.5s ease; /* Transición suave del cambio de color */
+        }
+        #registroForm {
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .error {
+            color: red;
+        }
+        .passwordSugerencias {
+            font-size: 12px;
+        }
+        .imagenBienvenida {
+            display: none;
+            width: 400px;
+            height: auto;
+        }
+        .fondoNegro {
+            background-color: black !important; /* Establecer el fondo como negro */
+        }
+        #mensajeBienvenida {
+            color: white;
+            font-size: 24px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>REGISTRO FITWOMEN</h1>
+    <img src="gym.jpg" id="imagenRegistro" />
+    <img src="bienvenida.jpg" id="imagenBienvenida" class="imagenBienvenida" />
+    <div id="mensajeBienvenida" style="display: none;">Bienvenido a FITWOMEN</div>
+    <form action="" id="registroForm" onmouseover="cambiarColorFondo('lightblue')" onmouseout="cambiarColorFondo('white')" onsubmit="return validarFormulario()">
+        Nombre: <input type="text" name="nombre" id="nombre" onkeypress="onNombreKeyPress(this);" /> <br>
+        Fecha de nacimiento: <input type="date" name="fechaNacimiento" /> <br>
+        Género:
+        <input type="checkbox" name="genero" value="m" id="generoM"> Masculino
+        <input type="checkbox" name="genero" value="f" id="generoF"> Femenino <br>
+        Dirección: <input type="text" name="direccion" /> <br>
+        Teléfono: <input type="tel" name="telefono" /> <br>
+        E-mail: <input type="email" name="email" /> <br>
+        Contraseña: <input type="password" name="password" id="password" oninput="mostrarSugerenciasContraseña()" /> <br>
+        <span id="passwordSugerencias" class="passwordSugerencias"></span> <br>
+        Confirmar Contraseña: <input type="password" name="passwordConfirmation" id="passwordConfirmation" onkeyup="checkPassword();" /> <span id="passwordError" class="error"></span><br>
+        Acepto los términos y condiciones <input type="checkbox" name="aceptoTerminosYCondiciones" id="aceptoTerminosYCondiciones"> <br>
+        <button type="button" onclick="registrarse()">Registrarse</button>
+        <div id="errorContainer" class="error"></div>
+    </form>
+
+    <script>
+        function registrarse() {
+            let nombreElement = document.getElementById('nombre');
+            let passwordElement = document.getElementById('password');
+            let passwordConfirmationElement = document.getElementById('passwordConfirmation');
+            let aceptoTerminosElement = document.getElementById('aceptoTerminosYCondiciones');
+            let imagenRegistro = document.getElementById('imagenRegistro');
+            let imagenBienvenida = document.getElementById('imagenBienvenida');
+            let mensajeBienvenida = document.getElementById('mensajeBienvenida');
+
+            let errors = [];
+
+            if (nombreElement.value === '') {
+                errors.push('Por favor, ingrese su nombre.');
+                nombreElement.style.background = 'red';
+            } else {
+                nombreElement.style.background = 'none';
+            }
+
+            if (passwordElement.value === '') {
+                errors.push('Por favor, ingrese una contraseña.');
+                passwordElement.style.background = 'red';
+            } else {
+                passwordElement.style.background = 'none';
+            }
+
+            if (passwordConfirmationElement.value !== passwordElement.value) {
+                errors.push('Las contraseñas no coinciden.');
+                document.getElementById('passwordError').innerHTML = 'Las contraseñas no coinciden.';
+            } else {
+                document.getElementById('passwordError').innerHTML = '';
+            }
+
+            if (!aceptoTerminosElement.checked) {
+                errors.push('Debe aceptar los términos y condiciones.');
+            }
+
+            if (errors.length === 0) {
+                // Mostrar imagen de bienvenida y ocultar la imagen de registro
+                imagenBienvenida.style.display = 'block';
+                imagenRegistro.style.display = 'none';
+                // Mostrar mensaje de bienvenida
+                mensajeBienvenida.style.display = 'block';
+                // Cambiar el fondo a negro
+                document.body.classList.add('fondoNegro');
+                // Aquí podrías enviar los datos del formulario a un servidor para el registro
+                // Por ejemplo, mediante una solicitud HTTP
+            } else {
+                // Mostrar los errores
+                document.getElementById('errorContainer').innerHTML = errors.join('<br>');
+            }
+        }
+
+        function onNombreKeyPress(nombreElement) {
+            nombreElement.style.background = 'none';
+        }
+
+        function checkPassword() {
+            let passwordElement = document.getElementById('password');
+            let passwordConfirmationElement = document.getElementById('passwordConfirmation');
+
+            if (passwordElement.value !== passwordConfirmationElement.value) {
+                document.getElementById('passwordError').innerHTML = 'Las contraseñas no coinciden.';
+            } else {
+                document.getElementById('passwordError').innerHTML = '';
+            }
+        }
+
+        function cambiarColorFondo(color) {
+            document.getElementById('registroForm').style.backgroundColor = color;
+        }
+
+        function validarFormulario() {
+            let aceptoTerminosElement = document.getElementById('aceptoTerminosYCondiciones');
+            let generoM = document.getElementById('generoM');
+            let generoF = document.getElementById('generoF');
+
+            if (!aceptoTerminosElement.checked) {
+                document.getElementById('errorContainer').innerHTML = 'Debe aceptar los términos y condiciones.';
+                return false;
+            }
+
+            if (!generoM.checked && !generoF.checked) {
+                document.getElementById('errorContainer').innerHTML = 'Por favor, seleccione al menos un género.';
+                return false;
+            }
+
+            return true;
+        }
+
+        function mostrarSugerenciasContraseña() {
+            let passwordElement = document.getElementById('password');
+            let sugerencias = [];
+
+            if (passwordElement.value.length < 8) {
+                sugerencias.push('La contraseña debe tener al menos 8 caracteres.');
+            }
+
+            if (!/[A-Z]/.test(passwordElement.value)) {
+                sugerencias.push('Incluir al menos una letra mayúscula.');
+            }
+
+            if (!/[a-z]/.test(passwordElement.value)) {
+                sugerencias.push('Incluir al menos una letra minúscula.');
+            }
+
+            if (!/\d/.test(passwordElement.value)) {
+                sugerencias.push('Incluir al menos un número.');
+            }
+
+            if (!/[^a-zA-Z0-9]/.test(passwordElement.value)) {
+                sugerencias.push('Incluir al menos un carácter especial.');
+            }
+
+            document.getElementById('passwordSugerencias').innerHTML = sugerencias.join('<br>');
+        }
+    </script>
+</body>
+</html>
